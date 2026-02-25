@@ -1,62 +1,126 @@
-/* Movie card styles */
+body {
+    background-color: #f7f2f2;
+    font-family: Arial, sans-serif;
+    color: #111;
+}
+
+/* Movie Card */
 .movie-card {
+    background-color: #e3dede;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    transition: 0.2s ease;
+    overflow: hidden;            
     display: flex;
     flex-direction: column;
+    text-align: left;       /* default alignment for card content */
+    height: 100%;
+}
+
+/* Image Wrapper to fix image height */
+.movie-img-wrapper {
+    position: relative;       /* needed for overlay */
+    flex: 0 0 300px;          /* fixed image height for all cards */
+    width: 100%;
+    overflow: hidden;      
+}
+
+/* Movie Image - fills the wrapper */
+.movie-img {
+    width: 100%;
+    height: 100%;          
+    object-fit: cover;     
+    display: block;
+    border-radius: 0;      
+    transition: transform 0.3s ease; /* optional zoom effect */
+}
+
+/* Hover effect on image */
+.movie-img-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
+    background-color: rgba(255, 255, 255, 0); /* transparent by default */
+    transition: background-color 0.3s ease;
+}
+
+.movie-img-wrapper:hover::after {
+    background-color: rgba(255, 255, 255, 0.2); /* soft white overlay */
+}
+
+.movie-img-wrapper:hover .movie-img {
+    transform: scale(1.05); /* optional: slight zoom for effect */
+}
+
+/* Card Body (title + links) fills remaining space */
+.card-body {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Movie Title - responsive based on card size */
+.movie-title {
+    margin: 10px 0 5px 0;
+    font-weight: bold;
+    font-size: calc(12px + 1vw);   /* scales with screen width */
+    word-wrap: break-word;         
+    overflow-wrap: anywhere;       
+    text-align: center;            /* title centered */
+}
+
+/* Links Section - left aligned and responsive */
+.movie-links {
+    font-size: calc(10px + 0.8vw);  /* scales with screen width */
+    text-align: left;                /* align links left */
+    padding-left: 5px;               /* closer to card edge */
+    line-height: 1.2;                /* tighter spacing between lines */
+}
+
+.movie-links a {
+    display: block;                  /* stack links vertically */
+    margin: 1px 0;                   /* smaller margin to reduce space */
+    color: #0d6efd;
+    text-decoration: none;
+    transition: color 0.2s;
+    word-break: break-word;          /* ensures long links wrap */
+}
+
+.movie-links a:hover {
+    color: #ffc107;
+}
+
+/* YouTube Icon inside link */
+.movie-links img {
+    width: 20px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 576px) {
+    .movie-card {
+        flex-direction: column; /* ensures card layout stays vertical */
+        text-align: left;
+    }
+}
+
+/* Movie Card Hover Effect */
+.movie-card {
+    background-color: #e3dede;
+    border-radius: 10px;
+    overflow: hidden;            
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 .movie-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
-}
-
-/* Image container with aspect ratio */
-.movie-img-wrapper {
-    width: 100%;
-    aspect-ratio: 3/4.5; /* poster style ratio */
-    overflow: hidden;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
-.movie-img-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* fill container without distortion */
-    display: block;
-}
-
-.card-body {
-    text-align: center;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 0.75rem;
-}
-
-.card-title {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-}
-
-.card-body a {
-    text-decoration: none;
-    color: #0d6efd;
-}
-
-.card-body a:hover {
-    text-decoration: underline;
-}
-
-/* YouTube icon style */
-.movie-links a img {
-    width: 16px;
-    height: 16px;
-    vertical-align: middle;
-    margin-right: 4px;
+    background-color: #f0eaea; /* soft lighter color */
+    transform: scale(1.02);     /* slight zoom */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* subtle shadow */
 }
